@@ -2,20 +2,21 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  const urls = ['view-source:https://techcrunch.com/','view-source:http://www.bbcamerica.com/','view-source:http://www.google.com/']
+	const browser = await puppeteer.launch({headless: true});
+	const page = await browser.newPage();
+	var jsonlist = require('./urllist.json')
+	const urls = jsonlist.search
 
 	for (let i = 0; i < urls.length; i++) {
 		const url = urls[i];
-		await page.goto(`${url}`);    
+		await page.goto(`${url.URL}`);    
 		const found = await page.evaluate(() => window.find("wp-includes"));
-		console.log(found);
+		console.log(url.URL + "  " +found);
 
-		fs.appendFile('test1.txt', url + found + '\n' , function (err) {
+		fs.appendFile('result.txt', url.URL + " " +found + '\n' , function (err) {
 			if (err) throw err;
-			console.log('Saved!');
 		});
 	}
-  await browser.close();
+
+	await browser.close();
 })();
