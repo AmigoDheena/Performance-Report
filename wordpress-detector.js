@@ -9,7 +9,7 @@ const fs = require('fs');
 
 	for (let i = 0; i < urls.length; i++) {
 		const url = urls[i];
-		await page.goto(`${url.URL}`);    
+		await page.goto(`${url.URL}`).catch(e => void 0);    
 		const found = await page.evaluate(() => window.find("wp-includes"));
 		// console.log(url.URL + "  " +found);
 
