@@ -4,7 +4,7 @@ const search_term = 'ps4+games'
 const url = 'https://www.amazon.in/s?k='+search_term;
 const selector = '.s-include-content-margin';
 (async function(){
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
     await page.goto(url);
     const product = await page.$$eval(selector, nodes => {
@@ -29,7 +29,7 @@ const selector = '.s-include-content-margin';
             return console.log(err);
         }
         console.log("The file was saved!");
-    }); 
+    });
     console.log(product);
     await browser.close();
 })();
