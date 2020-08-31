@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const search_term = 'ps4+games'
+const search_term = 'ps4+games';
 const url = 'https://www.amazon.in/s?k='+search_term;
 const selector = '.s-include-content-margin';
 (async function(){
@@ -21,7 +21,6 @@ const selector = '.s-include-content-margin';
             }
         })
     });
-
     //Save file as JSON
     const jsonContent = JSON.stringify(product);
     fs.writeFile("./myjsonfile.json", jsonContent, 'utf8', function (err) {
@@ -30,6 +29,6 @@ const selector = '.s-include-content-margin';
         }
         console.log("The file was saved!");
     });
-    console.log(product);
+    console.log(product);    
     await browser.close();
 })();
